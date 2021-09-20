@@ -18,7 +18,7 @@ class CreateVehiclesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('registration_number');
-            $table->decimal('mileage');
+            $table->integer('mileage');
         });
     }
 
