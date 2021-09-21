@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="app">
-    <vehicle-fleet></vehicle-fleet>
-</div>
+        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            <vehicle-fleet></vehicle-fleet>
+        </div>
 @endsection
