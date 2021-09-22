@@ -29,16 +29,12 @@
         <!-- Pagination -->
         <nav aria-label="Page navigation example" class="mt-3">
           <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">...</a></li>
-            <li class="page-item"><a class="page-link" href="#">99</a></li>
             <li class="page-item">
-              <a class="page-link" href="#">Next</a>
+              <a class="page-link" @click="getVehicles(--current_page, null, 'id', 'asc')" href="#">Previous</a>
+            </li>
+            <li class="page-item disabled"><a class="page-link">{{current_page}} of {{last_page}}</a></li>
+            <li class="page-item">
+              <a class="page-link" @click="getVehicles(++current_page, null, 'id', 'asc')" href="#">Next</a>
             </li>
           </ul>
         </nav>
@@ -54,14 +50,18 @@ export default {
   data: function () {
     return {
       vehicles: [],
+      current_page: 1,
+      last_page: null
     };
   },
   methods: {
-    getVehicles() {
+    getVehicles(page, search, sort_col, sort_order) {
       axios
-        .get("api/vehicles")
+        .get("api/vehicles", {params: {page, search, sort_col, sort_order}})
         .then((response) => {
           this.vehicles = response.data.data;
+          this.current_page = response.data.current_page;
+          this.last_page = response.data.last_page;
         })
         .catch((error) => {
           console.log(error);

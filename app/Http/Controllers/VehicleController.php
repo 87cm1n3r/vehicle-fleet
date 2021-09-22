@@ -11,6 +11,7 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -24,10 +25,10 @@ class VehicleController extends Controller
             ->where('name', 'like', '%'.$search.'%')
             ->orWhere('registration_number', 'like', '%'.$search.'%')
             ->orWhere('mileage', 'like', $search);
-
+        
         $vehicles = $vehicles->orderBy($sort_col, $sort_dir);
-
-        $vehicles = $vehicles->simplePaginate($per_page);
+        
+        $vehicles = $vehicles->paginate($per_page);
 
         return $vehicles;
     }
