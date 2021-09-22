@@ -61,7 +61,7 @@ export default {
       axios
         .get("api/vehicles")
         .then((response) => {
-          this.vehicles = response.data;
+          this.vehicles = response.data.data;
         })
         .catch((error) => {
           console.log(error);

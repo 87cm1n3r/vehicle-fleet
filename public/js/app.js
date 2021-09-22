@@ -5430,7 +5430,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("api/vehicles").then(function (response) {
-        _this.vehicles = response.data;
+        _this.vehicles = response.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
