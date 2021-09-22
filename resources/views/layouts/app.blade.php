@@ -19,14 +19,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url({{asset('svg/bg3.svg')}}); background-size: cover;">
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
             <div class="container-fluid">
                 <a href="#" class="navbar-brand">{{config('app.name', 'Laravel')}}</a>
                 <div class="d-flex">
                     <div class="dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-reset" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 

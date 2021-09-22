@@ -1,14 +1,21 @@
 <template>
-    <tr>
-        <td>{{vehicle.name}}</td>
-        <td>{{vehicle.registration_number}}</td>
-        <td>{{vehicle.mileage}}</td>
-        <td><i class="bi bi-pencil-square"></i> <i class="bi bi-trash-fill"></i></td>
-    </tr>
+  <tr>
+    <td>{{ vehicle.name }}</td>
+    <td>{{ vehicle.registration_number }}</td>
+    <td>{{ vehicle.mileage }}</td>
+    <td>
+      <a :href="'api/vehicles/'+vehicle.id" class="text-decoration-none text-accent"
+        ><i class="bi-pencil-square"></i
+      ></a>
+      <a href="http://" class="text-decoration-none text-accent"
+        ><i class="bi-trash-fill"></i
+      ></a>
+    </td>
+  </tr>
 </template>
 
 <script>
 export default {
-    props: ['vehicle']
-}
+  props: ["vehicle"],
+};
 </script>
