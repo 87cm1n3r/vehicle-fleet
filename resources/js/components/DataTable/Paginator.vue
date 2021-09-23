@@ -1,18 +1,19 @@
 <template>
   <div class="row">
     <div class="col-auto">
-      <select
-        class="form-select"
-        @input="$emit('page-size', $event.target.value)"
-      >
-        <option selected>10</option>
-        <option>25</option>
-        <option>50</option>
-        <option>100</option>
-      </select>
-    </div>
-    <div class="col-auto">
-      <span>Entries per page</span>
+      <div class="input-group">
+        <select
+          class="form-select"
+          id="size-select"
+          @input="$emit('page-size', $event.target.value)"
+        >
+          <option selected>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+        </select>
+        <label class="input-group-text" for="size-select">Per page</label>
+      </div>
     </div>
     <div class="col align-self-end">
       <nav>

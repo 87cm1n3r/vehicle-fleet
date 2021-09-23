@@ -5351,6 +5351,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["current_page", "last_page"]
 });
@@ -5532,6 +5533,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5546,13 +5548,16 @@ __webpack_require__.r(__webpack_exports__);
       vehicles: [],
       headers: [{
         text: "Name",
-        value: "name"
+        value: "name",
+        type: "text"
       }, {
         text: "Registration number",
-        value: "registration_number"
+        value: "registration_number",
+        type: "text"
       }, {
         text: "Mileage",
-        value: "mileage"
+        value: "mileage",
+        type: "number"
       }],
       current_page: 1,
       last_page: 1,
@@ -5577,10 +5582,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     edit_title: function edit_title() {
-      return this.edited_item_id == -1 ? "New vehicle" : "Edit ".concat(this.edited_item.name);
+      return this.edited_item_id === -1 ? "New vehicle" : "Edit ".concat(this.edited_item.name);
     },
     destroy_text: function destroy_text() {
-      return "Are you sure you want to delete: ".concat(this.edited_item.name, "?");
+      return "Are you sure you want to delete ".concat(this.edited_item.name, "?");
     }
   },
   methods: {
@@ -5637,7 +5642,7 @@ __webpack_require__.r(__webpack_exports__);
     onEdit: function onEdit(id) {
       this.edited_item_id = id;
 
-      if (id != -1) {
+      if (id !== -1) {
         var item = this.vehicles.filter(function (vehicle) {
           return vehicle.id == id;
         })[0];
@@ -5655,7 +5660,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog_destroy = true;
     },
     onSubmitEdit: function onSubmitEdit() {
-      if (this.edited_item_id == -1) this.addVehicle(this.edited_item);else this.updateVehicle(this.edited_item_id, this.edited_item);
+      if (this.edited_item_id === -1) this.addVehicle(this.edited_item);else this.updateVehicle(this.edited_item_id, this.edited_item);
       this.close();
       this.getVehicles();
     },
@@ -5676,9 +5681,12 @@ __webpack_require__.r(__webpack_exports__);
     this.debouncedGetVehicles = _.debounce(this.getVehicles, 500);
   },
   watch: {
-    search: function search(newValue, oldValue) {
+    search: function search() {
       if (this.search == "") this.search = null;
       this.debouncedGetVehicles();
+    },
+    last_page: function last_page() {
+      if (this.current_page > this.last_page) this.onChangePage(this.last_page);
     }
   }
 });
@@ -11063,7 +11071,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-95b34332] {\r\n  position: fixed;\r\n  z-index: 9998;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-95b34332] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-dialog[data-v-95b34332] {\r\n  transition: all 0.3s ease;\n}\n.modal-enter[data-v-95b34332] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-95b34332] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-95b34332],\r\n.modal-leave-active .modal-container[data-v-95b34332] {\r\n  transform: scale(1.1);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-95b34332] {\r\n  position: fixed;\r\n  z-index: 9998;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-95b34332] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-dialog[data-v-95b34332] {\r\n  transition: all 0.3s ease;\n}\n.modal-enter-active[data-v-95b34332] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-95b34332] {\r\n  opacity: 0;\n}\n.modal-enter .modal-dialog[data-v-95b34332],\r\n.modal-leave-active .modal-dialog[data-v-95b34332] {\r\n  transform: scale(1.05);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43504,29 +43512,36 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-auto" }, [
-      _c(
-        "select",
-        {
-          staticClass: "form-select",
-          on: {
-            input: function($event) {
-              return _vm.$emit("page-size", $event.target.value)
+      _c("div", { staticClass: "input-group" }, [
+        _c(
+          "select",
+          {
+            staticClass: "form-select",
+            attrs: { id: "size-select" },
+            on: {
+              input: function($event) {
+                return _vm.$emit("page-size", $event.target.value)
+              }
             }
-          }
-        },
-        [
-          _c("option", { attrs: { selected: "" } }, [_vm._v("10")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("25")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("50")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("100")])
-        ]
-      )
+          },
+          [
+            _c("option", { attrs: { selected: "" } }, [_vm._v("10")]),
+            _vm._v(" "),
+            _c("option", [_vm._v("25")]),
+            _vm._v(" "),
+            _c("option", [_vm._v("50")]),
+            _vm._v(" "),
+            _c("option", [_vm._v("100")])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "input-group-text", attrs: { for: "size-select" } },
+          [_vm._v("Per page")]
+        )
+      ])
     ]),
-    _vm._v(" "),
-    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "col align-self-end" }, [
       _c("nav", [
@@ -43587,16 +43602,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-auto" }, [
-      _c("span", [_vm._v("Entries per page")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -43843,57 +43849,170 @@ var render = function() {
                   key: "body",
                   fn: function() {
                     return [
-                      _c("form", [
-                        _c(
-                          "div",
-                          { staticClass: "row g-3" },
-                          _vm._l(_vm.headers, function(header, index) {
-                            return _c(
-                              "div",
-                              { key: index, staticClass: "col-md-6" },
-                              [
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "form-label",
-                                    attrs: { for: header.value }
-                                  },
-                                  [_vm._v(_vm._s(header.text))]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
+                      _c(
+                        "form",
+                        {
+                          attrs: { id: "editForm" },
+                          on: { submit: _vm.onSubmitEdit }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "row g-3" },
+                            _vm._l(_vm.headers, function(header, index) {
+                              return _c(
+                                "div",
+                                { key: index, staticClass: "col-md-6" },
+                                [
+                                  _c(
+                                    "label",
                                     {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.edited_item[header.value],
-                                      expression: "edited_item[header.value]"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: { type: "text", id: header.value },
-                                  domProps: {
-                                    value: _vm.edited_item[header.value]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.edited_item,
-                                        header.value,
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                })
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      ])
+                                      staticClass: "form-label",
+                                      attrs: { for: header.value }
+                                    },
+                                    [_vm._v(_vm._s(header.text))]
+                                  ),
+                                  _vm._v(" "),
+                                  header.type === "checkbox"
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.edited_item[header.value],
+                                            expression:
+                                              "edited_item[header.value]"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          id: header.value,
+                                          required: "",
+                                          type: "checkbox"
+                                        },
+                                        domProps: {
+                                          checked: Array.isArray(
+                                            _vm.edited_item[header.value]
+                                          )
+                                            ? _vm._i(
+                                                _vm.edited_item[header.value],
+                                                null
+                                              ) > -1
+                                            : _vm.edited_item[header.value]
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a =
+                                                _vm.edited_item[header.value],
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.edited_item,
+                                                    header.value,
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.edited_item,
+                                                    header.value,
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(
+                                                _vm.edited_item,
+                                                header.value,
+                                                $$c
+                                              )
+                                            }
+                                          }
+                                        }
+                                      })
+                                    : header.type === "radio"
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.edited_item[header.value],
+                                            expression:
+                                              "edited_item[header.value]"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          id: header.value,
+                                          required: "",
+                                          type: "radio"
+                                        },
+                                        domProps: {
+                                          checked: _vm._q(
+                                            _vm.edited_item[header.value],
+                                            null
+                                          )
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.$set(
+                                              _vm.edited_item,
+                                              header.value,
+                                              null
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.edited_item[header.value],
+                                            expression:
+                                              "edited_item[header.value]"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          id: header.value,
+                                          required: "",
+                                          type: header.type
+                                        },
+                                        domProps: {
+                                          value: _vm.edited_item[header.value]
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.edited_item,
+                                              header.value,
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                      )
                     ]
                   },
                   proxy: true
@@ -43916,8 +44035,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-primary",
-                          attrs: { type: "button" },
-                          on: { click: _vm.onSubmitEdit }
+                          attrs: { type: "submit", form: "editForm" }
                         },
                         [_vm._v("\n        Save changes\n      ")]
                       )
@@ -43928,7 +44046,7 @@ var render = function() {
               ],
               null,
               false,
-              441509936
+              1355323446
             )
           })
         : _vm._e(),

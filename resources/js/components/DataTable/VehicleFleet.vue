@@ -47,7 +47,7 @@
     <!-- Edit Modal -->
     <modal v-if="dialog_edit" @close="close" :title="edit_title">
       <template v-slot:body>
-        <form>
+        <form id="editForm" @submit="onSubmitEdit">
           <div class="row g-3">
             <div
               class="col-md-6"
@@ -58,9 +58,10 @@
                 header.text
               }}</label>
               <input
-                type="text"
                 class="form-control"
                 :id="header.value"
+                :type="header.type"
+                required
                 v-model="edited_item[header.value]"
               />
             </div>
@@ -71,7 +72,7 @@
         <button type="button" class="btn btn-secondary" @click="close">
           Cancel
         </button>
-        <button type="button" class="btn btn-primary" @click="onSubmitEdit">
+        <button type="submit" class="btn btn-primary" form="editForm">
           Save changes
         </button>
       </template>
@@ -103,9 +104,9 @@ export default {
     return {
       vehicles: [],
       headers: [
-        { text: "Name", value: "name" },
-        { text: "Registration number", value: "registration_number" },
-        { text: "Mileage", value: "mileage" },
+        { text: "Name", value: "name", type: "text" },
+        { text: "Registration number", value: "registration_number", type: "text" },
+        { text: "Mileage", value: "mileage", type: "number" },
       ],
       current_page: 1,
       last_page: 1,
@@ -131,12 +132,12 @@ export default {
   },
   computed: {
     edit_title: function () {
-      return this.edited_item_id == -1
+      return this.edited_item_id === -1
         ? "New vehicle"
         : `Edit ${this.edited_item.name}`;
     },
     destroy_text: function () {
-      return `Are you sure you want to delete: ${this.edited_item.name}?`;
+      return `Are you sure you want to delete ${this.edited_item.name}?`;
     },
   },
   methods: {
@@ -192,7 +193,7 @@ export default {
     },
     onEdit(id) {
       this.edited_item_id = id;
-      if (id != -1) {
+      if (id !== -1) {
         var item = this.vehicles.filter((vehicle) => vehicle.id == id)[0];
         this.edited_item = Object.assign({}, item);
       }
@@ -206,7 +207,7 @@ export default {
       this.dialog_destroy = true;
     },
     onSubmitEdit() {
-      if (this.edited_item_id == -1) this.addVehicle(this.edited_item);
+      if (this.edited_item_id === -1) this.addVehicle(this.edited_item);
       else this.updateVehicle(this.edited_item_id, this.edited_item);
 
       this.close();
@@ -229,9 +230,12 @@ export default {
     this.debouncedGetVehicles = _.debounce(this.getVehicles, 500);
   },
   watch: {
-    search: function (newValue, oldValue) {
+    search: function () {
       if (this.search == "") this.search = null;
       this.debouncedGetVehicles();
+    },
+    last_page: function () {
+      if (this.current_page > this.last_page) this.onChangePage(this.last_page);
     },
   },
 };

@@ -53,7 +53,7 @@ export default {
   transition: all 0.3s ease;
 }
 
-.modal-enter {
+.modal-enter-active {
   opacity: 0;
 }
 
@@ -61,9 +61,9 @@ export default {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+.modal-enter .modal-dialog,
+.modal-leave-active .modal-dialog {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
 }
 </style>
