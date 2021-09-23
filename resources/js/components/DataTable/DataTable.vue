@@ -1,10 +1,11 @@
 <template>
-  <div class="table-responsive rounded-top">
+  <div class="table-responsive rounded-top" style="min-height: 55vh;">
     <table class="table table-hover">
       <table-head
         :headers="headers"
         :sort_column="sort_column"
         :sort_direction="sort_direction"
+        v-on="$listeners"
       ></table-head>
       <tbody>
         <table-row
@@ -12,6 +13,7 @@
           :key="index"
           :item="item"
           :headers="headers"
+          v-on="$listeners"
         ></table-row>
       </tbody>
     </table>

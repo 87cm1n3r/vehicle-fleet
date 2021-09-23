@@ -4,11 +4,12 @@
       <th
         v-for="(header, index) in headers"
         :key="index"
-        @click="$parent.$emit('on-sort', header.value)"
+        @click="$emit('sort', header.value)"
       >
         {{ header.text }}
         <i v-visible="sort_column == header.value" :class="caretIcon"></i>
       </th>
+      <th>Action</th>
     </tr>
   </thead>
 </template>
