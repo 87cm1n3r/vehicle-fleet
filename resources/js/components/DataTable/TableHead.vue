@@ -7,7 +7,7 @@
         @click="$emit('sort', header.value)"
       >
         {{ header.text }}
-        <i v-visible="sort_column == header.value" :class="caretIcon"></i>
+        <i v-show="(sort_column == header.value)" :class="caretIcon"></i>
       </th>
       <th>Action</th>
     </tr>
@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 th {
   user-select: none;
   cursor: pointer;

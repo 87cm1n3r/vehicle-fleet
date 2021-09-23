@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +15,10 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
-
 Route::group(['middleware'=>['auth:sanctum']], function() {
     Route::resource('vehicles', VehicleController::class)->only([
         'index', 'store', 'show', 'update', 'destroy'
     ]);
-    
-    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
