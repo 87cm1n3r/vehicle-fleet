@@ -1,7 +1,9 @@
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
 
 # Vehicle Fleet
 
-
+Simple project for learning both backend and frontend.
 
 ## Quick Start
 ``` bash
@@ -20,7 +22,7 @@ php artisan db:seed
 
 #### Get all vehicles
 
-```http
+```
   GET /api/vehicles
 ```
 
@@ -34,7 +36,7 @@ php artisan db:seed
 
 #### Get vehicle
 
-```http
+```
   GET /api/vehicles/${id}
 ```
 
@@ -44,7 +46,7 @@ php artisan db:seed
 
 #### Delete vehicle
 
-```http
+```
   DELETE /api/vehicles/${id}
 ```
 
@@ -55,7 +57,7 @@ php artisan db:seed
 
 #### Create vehicle
 
-```http
+```
   POST /api/vehicles
 ```
 
@@ -67,7 +69,7 @@ php artisan db:seed
 
 #### Update vehicle
 
-```http
+```
   PUT /api/vehicles
 ```
 
